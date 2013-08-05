@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/black-tie/jquery-ui-1.10.3.custom.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css" />
+        <script src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>
+        <script src="{{ STATIC_URL }}js/jquery-ui-1.10.3.custom.min.js"></script>
+        <script src="{{ STATIC_URL }}js/functions.js"></script>
+        <script>
+            $(function() {
+                $( "#tabs" ).tabs();
+                $( "#scan" ).button();
+
+                $(document).ready(function(){
+                    // bind click event
+                    $( "#scan").click( function() {
+                        scan($( "#sensor_settings" ));
+                        updateLastScan($( "#scan_label" ));
+                    });
+                    // init last update label
+                    updateLastScan($( "#scan_label" ));
+                    $( "#settings_dialog" ).dialog({ autoOpen: false, modal: true });
+                    //scan($( "#sensor_settings" ));
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>onewiregraph</h1>
+        <div id="warnings" class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em; display: none;">
+            <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>Test
+        </div>
+        <div id="tabs">
+            <ul>
+                <li><a href="#data">Data</a></li>
+                <li><a href="#settings">Settings</a></li>
+            </ul>
+            <div id="data">
+                Insert data here...
+            </div>
+            <div id="settings">
+                <button id="scan">Scan for sensors</button><span id="scan_label"></span>
+                <h2>Sensoren</h2>
+                <div id="sensor_settings">
+                </div>
+                <div id="settings_dialog" title="Setup Sensor">I'm a dialog</div>
+            </div>
+        </div>
+    </body>
+</html>
