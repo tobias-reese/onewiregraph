@@ -50,6 +50,14 @@ def scan():
     return_dict = {'unconfigured': unconfigured, 'configured': configured, 'states': Sensor.DEVICE_STATE}
     return return_dict
 
+def sensors():
+    sensors = Sensor.objects.all().filter(state=10)
+    configured = list()
+    for sensor in sensors:
+        configured.append(sensor.id)
+    return_dict = {'configured': configured}
+    return return_dict
+
 def save(request):
     id = request.POST.get('id')
     type = request.POST.get('type')

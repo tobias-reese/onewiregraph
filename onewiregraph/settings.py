@@ -1,10 +1,11 @@
 # Django settings for onewiregraph project.
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Tobias Reese', 'tobias.reese@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -36,6 +37,8 @@ TIME_ZONE = 'Europe/Berlin'
 LANGUAGE_CODE = 'de-de'
 
 SITE_ID = 1
+
+SITE_ROOT = os.path.dirname(os.path.dirname(__file__))
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -69,6 +72,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    os.path.join(SITE_ROOT, 'data'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

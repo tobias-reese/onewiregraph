@@ -75,3 +75,27 @@ function setup_save() {
     scan($( "#sensor_settings" ));
     updateLastScan($( "#scan_label" ));
 }
+
+function update_data(container) {
+    container.empty()
+    $.ajax("/api/sensors").done(
+        function (msg) {
+            var data_content = ''
+            $.each(msg.configured, function(i, value) {
+                data_content = data_content + "<h3>" + value + "</h3>"
+                data_content = data_content + "<h4>Last 2 Hours</h4>"
+                data_content = data_content + "<img src=\"/static/" + value + "/hour.png\"/>"
+                data_content = data_content + "<h4>Last day</h4>"
+                data_content = data_content + "<img src=\"/static/" + value + "/day.png\"/>"
+                data_content = data_content + "<h4>Last week</h4>"
+                data_content = data_content + "<img src=\"/static/" + value + "/week.png\"/>"
+                data_content = data_content + "<h4>Last month</h4>"
+                data_content = data_content + "<img src=\"/static/" + value + "/month.png\"/>"
+                data_content = data_content + "<h4>Last year</h4>"
+                data_content = data_content + "<img src=\"/static/" + value + "/year.png\"/>"
+            })
+            container.append(data_content)
+        }
+    )
+    // http://172.30.10.243:8000/static/10-000802909647/hour.png
+}

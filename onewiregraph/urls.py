@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'onewire.views.index'),
     url(r'^api/last_scan.*$', 'onewire.views.last_scan'),
+    url(r'^api/sensors.*$', 'onewire.views.sensors'),
     url(r'^api/scan.*$', 'onewire.views.scan'),
     url(r'^sensor/add/(?P<id>.*)$', SensorCreate.as_view()),
     url(r'^sensor/save', 'onewire.views.save'),

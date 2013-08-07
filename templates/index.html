@@ -16,6 +16,7 @@
                         scan($( "#sensor_settings" ));
                         updateLastScan($( "#scan_label" ));
                     });
+                    update_data( $( "#data" ) )
                     // init last update label
                     updateLastScan($( "#scan_label" ));
                     $( "#settings_dialog" ).dialog({ autoOpen: false, modal: true, buttons: [ { text: "Save", click: setup_save}] });

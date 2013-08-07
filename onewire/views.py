@@ -10,12 +10,16 @@ from onewire.models import Sensor
 def index(request):
     return render(request, 'index.html', {})
 
-def last_scan(requetst):
+def last_scan(request):
     response = HttpResponse(json.dumps(api.last_scan()), content_type='application/json')
     return response
 
 def scan(request):
     response = HttpResponse(json.dumps(api.scan()), content_type='application/json')
+    return response
+
+def sensors(request):
+    response = HttpResponse(json.dumps(api.sensors()), content_type='application/json')
     return response
 
 def save(request):
