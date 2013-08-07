@@ -18,7 +18,7 @@
                     });
                     // init last update label
                     updateLastScan($( "#scan_label" ));
-                    $( "#settings_dialog" ).dialog({ autoOpen: false, modal: true });
+                    $( "#settings_dialog" ).dialog({ autoOpen: false, modal: true, buttons: [ { text: "Save", click: setup_save}] });
                     //scan($( "#sensor_settings" ));
                 });
             });

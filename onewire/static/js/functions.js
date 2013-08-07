@@ -24,6 +24,12 @@ function scan(container) {
                             content = content + "<tr><td>" + data[value[1]][j] + '</td><td><button id="setup-' + data[value[1]][j] + '">Setup</button></td></tr>';
                         }
                         content = content + "</table></div>";
+                    } else if (value[1] === 'configured') {
+                        content = content + "<div><table>";
+                        for (var j=0;j<data[value[1]].length;j++) {
+                            content = content + "<tr><td>" + data[value[1]][j] + '</td></tr>';
+                        }
+                        content = content + "</table></div>";
                     } else {
                         content = content + "<div/>";
                     }
@@ -50,9 +56,22 @@ function setup() {
             if (msg) {
                 $( "#settings_dialog" ).empty();
                 $( "#settings_dialog" ).append(msg);
+                //$( "#form_save").button();
+                //$( "#form_save").click(setup_save);
                 $( "#settings_dialog" ).dialog( "open" );
             }
         }
     )
     console.log(id);
+}
+
+function setup_save() {
+    var data = $('form').serialize();
+    $.ajax("/sensor/save", {
+        type: "POST",
+        data: data
+    }).done()
+    $( "#settings_dialog").dialog("close");
+    scan($( "#sensor_settings" ));
+    updateLastScan($( "#scan_label" ));
 }
