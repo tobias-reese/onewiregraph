@@ -18,9 +18,13 @@ def scan(request):
     response = HttpResponse(json.dumps(api.scan()), content_type='application/json')
     return response
 
+def save(request):
+    api.save(request)
+    return HttpResponse("OK",content_type='text/HTML')
+
 class SensorCreate(CreateView):
     model = Sensor
-    fields = ['id', 'state', 'type']
+    fields = ['type']
 
     def get_initial(self):
-        return {'id':self.kwargs['id']}
+        return {'id':self.kwargs['id'], 'state': 10}

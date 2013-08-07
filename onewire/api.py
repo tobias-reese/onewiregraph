@@ -15,17 +15,27 @@ def last_scan():
     except KeyValue.DoesNotExist:
         return None
 
+def sensor_exists(sensors, id):
+    for sensors in sensors:
+        if (sensors.id == id):
+            return True
+    return False
+
 def scan():
     # get all sensors
     sensors = Sensor.objects.all()
 
     unconfigured = list()
+    configured = list()
 
     for root, dirs, files in os.walk('/sys/bus/w1/devices'):
         if 'w1_bus_master1':
             dirs.remove('w1_bus_master1')
         for dir in dirs:
-            unconfigured.append(dir)
+            if sensor_exists(sensors, dir):
+                configured.append(dir)
+            else:
+                unconfigured.append(dir)
 
     # update last scan
     try:
@@ -37,5 +47,15 @@ def scan():
         last.save()
 
     # build dict
-    return_dict = {'unconfigured': unconfigured, 'states': Sensor.DEVICE_STATE}
+    return_dict = {'unconfigured': unconfigured, 'configured': configured, 'states': Sensor.DEVICE_STATE}
     return return_dict
+
+def save(request):
+    id = request.POST.get('id')
+    type = request.POST.get('type')
+    state = request.POST.get('state')
+    consolidation = request.POST.get('consolidation')
+    minvalue = request.POST.get('minvalue')
+    maxvalue = request.POST.get('maxvalue')
+    sensor = Sensor(id=id,type=type,state=state,consolidation=consolidation,minvalue=minvalue,maxvalue=maxvalue)
+    sensor.save(1)

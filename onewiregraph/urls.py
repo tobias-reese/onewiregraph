@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^api/last_scan.*$', 'onewire.views.last_scan'),
     url(r'^api/scan.*$', 'onewire.views.scan'),
     url(r'^sensor/add/(?P<id>.*)$', SensorCreate.as_view()),
+    url(r'^sensor/save', 'onewire.views.save'),
     # url(r'^onewiregraph/', include('onewiregraph.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
